@@ -17,8 +17,8 @@ new Vue({
         }
     },
     async created() {
-        let statsRequest = axios.get("/data/trade_stats.json");
-        let leaguesRequest = axios.get("/data/leagues.json");
+        let statsRequest = axios.get("./data/trade_stats.json");
+        let leaguesRequest = axios.get("./data/leagues.json");
 
         this.stats = (await statsRequest).data.result.find(x => x.label == "Explicit").entries;
         this.leagues = (await leaguesRequest).data.result;

@@ -48,10 +48,15 @@
                         <table class="table table-hover table-sm mb-0">
                             <tbody>
                                 <tr v-for="(group, index) in groups">
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
+                                    <td class="d-flex group-row">
+                                        <div class="custom-control custom-checkbox col-7 d-flex align-items-stretch">
                                             <input type="checkbox" class="custom-control-input" :id.attr="`group${index}`" v-model="group.active">
-                                            <label class="custom-control-label d-block" :for.attr="`group${index}`" v-html="group.text"></label>
+                                            <label class="custom-control-label d-block w-100 align-self-center" :for.attr="`group${index}`" v-html="group.text"></label>
+                                        </div>
+                                        <button class="btn btn-sm btn-light border-form col-1 reset-button" @click="resetGroup(group)">Reset</button>
+                                        <div class="input-group input-group-sm col-4 pr-0">
+                                            <input type="number" v-model="group.min" class="form-control" min="0" placeholder="min" />
+                                            <input type="number" v-model="group.max" class="form-control" min="0" placeholder="max" />
                                         </div>
                                     </td>
                                 </tr>

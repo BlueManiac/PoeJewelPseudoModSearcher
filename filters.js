@@ -211,4 +211,6 @@ groups = [{
 
 for (item of [...filters, ...groups]) {
     item.active = false;
+    item.min = undefined;
+    item.max = undefined;
 }

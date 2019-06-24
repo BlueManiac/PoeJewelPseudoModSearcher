@@ -34,3 +34,10 @@ ol {
 .text-columns {
     column-count: 2;
 }
+
+.group-row .reset-button {
+    visibility: hidden;
+}
+.group-row:hover .reset-button {
+    visibility: visible;
+}

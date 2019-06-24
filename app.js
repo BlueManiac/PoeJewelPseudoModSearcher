@@ -53,6 +53,11 @@ new Vue({
                 'btn-outline-primary': filter.type === "Skills",
                 'btn-outline-warning': filter.type === "Special",
             }
+        },
+        resetGroup(group) {
+            group.active = false;
+            group.min = undefined;
+            group.max = undefined;
         }
     },
     computed: {
@@ -68,7 +73,8 @@ new Vue({
                 .map(x => Object.keys(x.stats).map(key => {
                     return {
                         text: key,
-                        filter: x.stats[key]
+                        filter: x.stats[key],
+                        group: x
                     }
                 }))
                 // Flatten mods
@@ -78,7 +84,13 @@ new Vue({
                 // Exclude mods that match selected filters starting with ! (ex. !Minion)
                 .filter(x => !x.filter.find(x => filters.find(f => "!" + f.text == x)))
                 // Find stat id:s
-                .map(x => this.stats.find(s => s.text == x.text) || { ...x, unavaliable: true })
+                .map(x => {
+                    var stat = this.stats.find(s => s.text == x.text) || { ...x, unavaliable: true };
+
+                    stat.group = x.group;
+
+                    return stat;
+                })
                 // Remove duplicates
                 .filter((x, index, self) => self.indexOf(x) === index);
         },
@@ -93,7 +105,11 @@ new Vue({
                 .map(x => {
                     return {
                         id: x.id,
-                        disabled: false
+                        disabled: false,
+                        value: {
+                            min: x.group.min,
+                            max: x.group.max
+                        }
                     }
                 });
 

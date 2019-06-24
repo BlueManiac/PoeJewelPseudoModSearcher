@@ -1,0 +1,36 @@
+.custom-control-label {
+    cursor: pointer;
+}
+
+ol {
+    margin-left: -2em;
+}
+
+.card > table tr:first-child td {
+    border-top: 0;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+#app:not([v-cloak]) {
+    animation: fadein 0.2s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.border-form {
+    border-color: #ced4da;
+}
+
+.text-columns {
+    column-count: 2;
+}

@@ -1,0 +1,10 @@
+{
+    // List of tags, comma separated, that should have an extra newline before them. 'null' defaults to "head, body, /html".
+    "html.format.extraLiners": "",
+    // Maximum amount of characters per line (0 = disable).
+    "html.format.wrapLineLength": 0,
+    // Format a file on save. A formatter must be available, the file must not be auto-saved, and editor must not be shutting down.
+    "editor.formatOnSave": true,
+    // Indent <head> and <body> sections.
+    "html.format.indentInnerHtml": true,
+}

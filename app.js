@@ -1,13 +1,7 @@
-var router = new VueRouter({
-    mode: 'history',
-    routes: []
-});
+import { filters, groups } from "./filters.js";
+import { statsPromise, leaugesPromise } from "./data.js";
 
-let statsPromise = axios.get("./data/trade_stats.json").then(x => x.data.result.find(x => x.label == "Explicit").entries);
-let leaugesPromise = axios.get("./data/leagues.json").then(x => x.data.result);
-
-new Vue({
-    router,
+export default {
     data() {
         return {
             filters: filters,
@@ -22,8 +16,6 @@ new Vue({
     async created() {
         this.leagues = await leaugesPromise;
         this.leauge = this.leagues.filter(x => x.id == localStorage.getItem('leaugeId'))[0] || this.leagues[0];
-
-        this.$mount('#app');
     },
     async mounted() {
         if (this.$route.query.filters) {
@@ -102,6 +94,9 @@ new Vue({
             return this.data.filter(x => x.unavaliable);
         },
         url() {
+            if (!this.leauge)
+                return;
+
             let filters = this.mods
                 .map(x => {
                     return {
@@ -153,4 +148,4 @@ new Vue({
             localStorage.setItem('leaugeId', this.leauge.id);
         }
     }
-})
+};

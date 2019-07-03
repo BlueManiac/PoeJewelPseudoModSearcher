@@ -1,4 +1,4 @@
-filters = [
+let filters = [
     { text: "Two-Handed Melee Weapons", type: "Weapons" },
     { text: "One-Handed Melee Weapons", type: "Weapons" },
     { text: "Two Handed Weapon", type: "Weapons" },
@@ -39,7 +39,13 @@ filters = [
     { text: "Single Target", type: "Special" },
 ];
 
-groups = [{
+for (let item of filters) {
+    item.active = false;
+}
+
+export { filters };
+
+let groups = [{
     "text": "#% increased Attack Speed",
     "stats": {
         "#% increased Attack Speed": ["All"],
@@ -209,8 +215,10 @@ groups = [{
     }
 }];
 
-for (item of [...filters, ...groups]) {
+for (let item of groups) {
     item.active = false;
     item.min = undefined;
     item.max = undefined;
 }
+
+export { groups };

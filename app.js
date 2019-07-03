@@ -3,6 +3,8 @@ var router = new VueRouter({
     routes: []
 });
 
+let statsPromise = axios.get("./data/trade_stats.json").then(x => x.data.result.find(x => x.label == "Explicit").entries);
+let leaugesPromise = axios.get("./data/leagues.json").then(x => x.data.result);
 
 new Vue({
     router,
@@ -18,21 +20,19 @@ new Vue({
         }
     },
     async created() {
-        let statsRequest = axios.get("./data/trade_stats.json");
-        let leaguesRequest = axios.get("./data/leagues.json");
-
-        this.stats = (await statsRequest).data.result.find(x => x.label == "Explicit").entries;
-        this.leagues = (await leaguesRequest).data.result;
+        this.leagues = await leaugesPromise;
         this.leauge = this.leagues.filter(x => x.id == localStorage.getItem('leaugeId'))[0] || this.leagues[0];
 
         this.$mount('#app');
     },
-    mounted() {
+    async mounted() {
         if (this.$route.query.filters) {
             for (filter of this.$route.query.filters.split(",").map(x => this.filters.find(f => f.text == x))) {
                 filter.active = true;
             }
         }
+
+        this.stats = await statsPromise;
     },
     methods: {
         reset() {

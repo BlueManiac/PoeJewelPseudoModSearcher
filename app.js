@@ -3,6 +3,7 @@ var router = new VueRouter({
     routes: []
 });
 
+
 new Vue({
     router,
     data() {
@@ -22,7 +23,7 @@ new Vue({
 
         this.stats = (await statsRequest).data.result.find(x => x.label == "Explicit").entries;
         this.leagues = (await leaguesRequest).data.result;
-        this.leauge = this.leagues.filter(x => x.id == localStorage.getItem('leaugeId'))[0] || this.leagues[0]
+        this.leauge = this.leagues.filter(x => x.id == localStorage.getItem('leaugeId'))[0] || this.leagues[0];
 
         this.$mount('#app');
     },

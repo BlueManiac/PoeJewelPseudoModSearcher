@@ -4,12 +4,11 @@
   "description": "",
   "main": "app.js",
   "devDependencies": {
-    "http-server": "^0.11.1",
-    "watch-http-server": "^0.7.6"
+    "light-server": "^2.6.3"
   },
   "scripts": {
-    "http": "http-server . -c-1",
-    "watch": "watch-http-server . -c-1"
+    "http": "light-server -s . --no-reload",
+    "watch": "light-server -s . -w **/*.html, **/*.js, **/*.json"
   },
   "author": "",
   "license": "ISC"

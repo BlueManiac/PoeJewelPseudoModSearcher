@@ -19,7 +19,7 @@ export default {
     },
     async mounted() {
         if (this.$route.query.filters) {
-            for (filter of this.$route.query.filters.split(",").map(x => this.filters.find(f => f.text == x))) {
+            for (let filter of this.$route.query.filters.split(",").map(x => this.filters.find(f => f.text == x))) {
                 filter.active = true;
             }
         }
@@ -28,12 +28,12 @@ export default {
     },
     methods: {
         reset() {
-            for (item of [...filters, ...groups]) {
+            for (let item of [...filters, ...groups]) {
                 item.active = false;
             }
         },
         selectAll(items) {
-            for (item of items) {
+            for (let item of items) {
                 item.active = true;
             }
         },

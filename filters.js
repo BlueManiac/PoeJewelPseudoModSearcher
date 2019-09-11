@@ -64,6 +64,7 @@ let groups = [{
         "#% increased Attack Speed with Staves": ["Staves"],
         "#% increased Attack Speed with Wands": ["Wands"],
         "#% increased Attack Speed with Bows": ["Bows"],
+        "Minions have #% increased Attack Speed": ["Minion"]
     }
 },
 {

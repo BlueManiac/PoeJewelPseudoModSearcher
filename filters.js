@@ -72,6 +72,7 @@ let groups = [{
     "stats": {
         "#% increased Damage": ["All"],
         "#% increased Damage if you've Killed Recently": ["!Single Target"],
+        "#% increased Damage with Two Handed Weapons": ["Two Handed Weapon", "Attack"],
         "#% increased Spell Damage": ["Spell"],
         "#% increased Spell Damage if you've dealt a Critical Strike Recently": ["Spell", "!Resolute Technique"],
         "#% increased Spell Damage while holding a Shield": ["Spell", "Shield"],

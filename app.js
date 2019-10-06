@@ -1,5 +1,6 @@
 import { filters, groups } from "./filters.js";
 import { statsPromise, leaugesPromise } from "./data.js";
+import { encode, decode } from './url-helper.js';
 
 export default {
     data() {
@@ -18,8 +19,10 @@ export default {
         this.leauge = this.leagues.filter(x => x.id == localStorage.getItem('leaugeId'))[0] || this.leagues[0];
     },
     async mounted() {
-        if (this.$route.query.filters) {
-            for (let filter of this.$route.query.filters.split(",").map(x => this.filters.find(f => f.text == x))) {
+        if (this.$route.query.data) {
+            var data = await decode(this.$route.query.data)
+
+            for (let filter of data.filters.map(x => this.filters.find(f => f.text == x))) {
                 filter.active = true;
             }
         }
@@ -46,6 +49,9 @@ export default {
                 'btn-outline-primary': filter.type === "Skills",
                 'btn-outline-warning': filter.type === "Special",
             }
+        },
+        toggleFilter(filter) {
+            filter.active = !filter.active;
         },
         resetGroup(group) {
             group.active = false;
@@ -146,6 +152,19 @@ export default {
     watch: {
         leauge() {
             localStorage.setItem('leaugeId', this.leauge.id);
+        },
+        filters: {
+            async handler() {
+                let data = {
+                    filters: this.filters.filter(x => x.active).map(x => x.text)
+                };
+
+                let query = {
+                    data: await encode(data)
+                };
+                this.$router.push({ query: query });
+            },
+            deep: true
         }
     }
 };

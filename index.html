@@ -34,22 +34,27 @@
             <div id="app" class="mt-3" v-cloak>
                 <a class="btn btn-sm mr-1 mb-1" v-for="filter in filters" v-html="filter.text" v-bind:class="filterClass(filter)" @click="toggleFilter(filter)"></a>
                 <div class="d-md-flex">
-                    <div class="flex-grow-1 form-row align-self-center">
-                        <div class="col-auto mt-1">
+                    <div class="flex-grow-1 form-row align-self-center pt-1">
+                        <div class="col-auto">
                             <select class="custom-select" v-model="leauge">
                                 <option v-for="league in leagues" v-bind:value="league" v-html="league.text"></option>
                             </select>
                         </div>
-                        <button class="btn btn-light border-form mr-1 mt-1" v-on:click="reset()">Reset</button>
-                        <button class="btn btn-light border-form mr-1 mt-1" v-on:click="selectAll(filters)">All filters</button>
-                        <button class="btn btn-light border-form mt-1" v-on:click="selectAll(groups)">All mods</button>
-                        <div class="col-auto mt-1">
-                            <select class="custom-select" v-model="count">
-                                <option v-for="index in [1, 2, 3, 4]" v-bind:value="index" v-html="index"></option>
-                            </select>
+                        <button class="btn btn-light border-form mr-1" v-on:click="reset()">Reset</button>
+                        <button class="btn btn-light border-form mr-1" v-on:click="selectAll(filters)">All filters</button>
+                        <button class="btn btn-light border-form" v-on:click="selectAll(groups)">All mods</button>
+                        <div class="col-auto" v-for="(statGroup, index) in enabledStatGroups">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Group {{index+1}}</label>
+                                </div>
+                                <select class="custom-select" v-model="statGroup.count">
+                                    <option v-for="index in [1, 2, 3, 4]" v-bind:value="index" v-html="index"></option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex mt-1 justify-content-center justify-content-md-end">
+                    <div class="d-flex justify-content-center justify-content-md-end">
                         <div class="custom-control custom-checkbox align-self-center mr-3">
                             <input type="checkbox" class="custom-control-input" id="showUrl" v-model="showUrl">
                             <label class="custom-control-label" for="showUrl">Show Url</label>
@@ -74,6 +79,7 @@
                                         <div class="input-group input-group-sm col-4 pr-0">
                                             <input type="number" v-model="group.min" class="form-control" min="0" placeholder="min" />
                                             <input type="number" v-model="group.max" class="form-control" min="0" placeholder="max" />
+                                            <input type="number" v-model.number="group.group" class="form-control" min="1" placeholder="group" />
                                         </div>
                                     </td>
                                 </tr>

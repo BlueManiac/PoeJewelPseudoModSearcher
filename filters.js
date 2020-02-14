@@ -215,12 +215,56 @@ let groups = [{
         "Adds # to # Chaos Damage to Spells while holding a Shield": ["Chaos", "Spell", "Shield"],
         "Adds # to # Chaos Damage to Spells while wielding a Two Handed Weapon": ["Chaos", "Spell", "Two Handed Weapon"],
     }
+},
+{
+    "text": "Life",
+    "stats": {
+        "#% increased maximum Life": ["All"],
+        "# to maximum Life": ["All"],
+    },
+    "group": 2
+},
+{
+    "text": "Energy shield",
+    "stats": {
+        "#% increased maximum Energy Shield": ["All"],
+        "# to maximum Energy Shield": ["All"],
+    },
+    "group": 2
+},
+{
+    "text": "Mana",
+    "stats": {
+        "#% increased maximum Mana": ["All"],
+        "# to maximum Mana": ["All"],
+    },
+    "group": 2
 }];
 
 for (let item of groups) {
     item.active = false;
     item.min = undefined;
     item.max = undefined;
+    item.group = item.group || 1;
 }
 
 export { groups };
+
+
+let statGroups = [{
+    count: 2
+},
+{
+    count: 1
+},
+{
+    count: 1
+},
+{
+    count: 1
+},
+{
+    count: 1
+}];
+
+export { statGroups };

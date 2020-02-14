@@ -8,7 +8,7 @@
   },
   "scripts": {
     "http": "light-server -s . --no-reload",
-    "watch": "light-server -s . -w **/*.html, **/*.js, **/*.json"
+    "watch": "light-server -s . -w \"**/*.html, **/*.js, **/*.json\""
   },
   "author": "",
   "license": "ISC"

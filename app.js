@@ -1,4 +1,4 @@
-import { filters, groups } from "./filters.js";
+import { filters, groups, statGroups } from "./filters.js";
 import { statsPromise, leaugesPromise } from "./data.js";
 import { encode, decode } from './url-helper.js';
 
@@ -11,7 +11,7 @@ export default {
             leagues: [],
             showUrl: false,
             leauge: null,
-            count: 2
+            statGroups: statGroups
         }
     },
     async created() {
@@ -103,27 +103,32 @@ export default {
             if (!this.leauge)
                 return;
 
-            let filters = this.mods
-                .map(x => {
-                    return {
-                        id: x.id,
-                        disabled: false,
-                        value: {
-                            min: x.group.min,
-                            max: x.group.max
+            let stats = this.enabledStatGroups.map((x, index) => {
+                let filters = this.mods
+                    .filter(m => m.group.group == index + 1)
+                    .map(m => {
+                        return {
+                            id: m.id,
+                            disabled: false,
+                            value: {
+                                min: m.group.min,
+                                max: m.group.max
+                            }
                         }
-                    }
-                });
+                    });
+
+                return {
+                    "type": "count",
+                    "value": { min: Math.min(x.count, filters.length) },
+                    "filters": filters,
+                    "disabled": false
+                }
+            });
 
             let source = {
                 "query": {
                     "status": { "option": "online" },
-                    "stats": [{
-                        "type": "count",
-                        "value": { min: Math.min(this.count, filters.length) },
-                        "filters": filters,
-                        "disabled": false
-                    }],
+                    "stats": stats,
                     "filters": {
                         "type_filters": {
                             "filters": {
@@ -147,6 +152,16 @@ export default {
                 .reduce((x, y) => x.concat(y), [])
                 .filter((x, index, self) => self.indexOf(x) === index)
                 .length;
+        },
+        enabledStatGroups() {
+            const distinct = (value, index, self) => {
+                return self.indexOf(value) === index;
+            };
+
+            return this.groups
+                .map(x => x.group)
+                .filter(distinct)
+                .map(x => this.statGroups[x - 1]);
         }
     },
     watch: {

@@ -143,7 +143,7 @@ export default {
                 }
             };
 
-            return `https://www.pathofexile.com/api/trade/search/${this.leauge.id}?redirect&source=${JSON.stringify(source)}`;
+            return `https://www.pathofexile.com/trade/search/${this.leauge.id}?q=${JSON.stringify(source)}`;
         },
         groupStatCount() {
             return this.groups
